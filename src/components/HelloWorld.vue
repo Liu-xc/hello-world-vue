@@ -1,112 +1,72 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br />
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener"
-        >vue-cli documentation</a
-      >.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel"
-          target="_blank"
-          rel="noopener"
-          >babel</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-router"
-          target="_blank"
-          rel="noopener"
-          >router</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-vuex"
-          target="_blank"
-          rel="noopener"
-          >vuex</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint"
-          target="_blank"
-          rel="noopener"
-          >eslint</a
-        >
-      </li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li>
-        <a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a>
-      </li>
-      <li>
-        <a href="https://forum.vuejs.org" target="_blank" rel="noopener"
-          >Forum</a
-        >
-      </li>
-      <li>
-        <a href="https://chat.vuejs.org" target="_blank" rel="noopener"
-          >Community Chat</a
-        >
-      </li>
-      <li>
-        <a href="https://twitter.com/vuejs" target="_blank" rel="noopener"
-          >Twitter</a
-        >
-      </li>
-      <li>
-        <a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a>
-      </li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li>
-        <a href="https://router.vuejs.org" target="_blank" rel="noopener"
-          >vue-router</a
-        >
-      </li>
-      <li>
-        <a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-devtools#vue-devtools"
-          target="_blank"
-          rel="noopener"
-          >vue-devtools</a
-        >
-      </li>
-      <li>
-        <a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener"
-          >vue-loader</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/awesome-vue"
-          target="_blank"
-          rel="noopener"
-          >awesome-vue</a
-        >
-      </li>
-    </ul>
+    <el-button type="primary">hello</el-button>
   </div>
 </template>
 
 <script>
+// TODO 这里能不能不用default导出
 export default {
   name: "HelloWorld",
   props: {
     msg: String,
+    name: {
+      type: String,
+      default: "jmc",
+    },
+    obj: {
+      type: Object,
+      default: () => {
+        return {
+          a: 1,
+        };
+      },
+    },
+  },
+  data () {
+    return {
+      isRed: true,
+      firstName: "lkfajs;dkasld",
+      lastName: "",
+    };
+  },
+  beforeCreate () {
+    // this.data
+  },
+  created () {
+    console.log("created");
+    this.hello();
+    console.log(this.fullName);
+  },
+  methods: {
+    hello () {
+      console.log("hello");
+    },
+    onClickName () {
+      // 触发事件
+      this.$emit("clickName", "newName");
+    },
+  },
+  watch: {
+    // 监听
+    firstName (newval, oldval) {
+      console.log("watch", newval, oldval);
+      // 在这里作一些事情，但不用返回值，也不是属性
+      // 在这里重新计算
+    },
+    lastName () { },
+  },
+  computed: {
+    // 计算属性,一定要返回值，因为它是一个属性
+    fullName () {
+      return this.firstName + this.lastName;
+    },
+    age () {
+      return 1;
+    },
+    list () {
+      return ["box", this.isRed ? "red-box" : ""];
+    },
   },
 };
 </script>
@@ -126,5 +86,14 @@ li {
 }
 a {
   color: #42b983;
+}
+
+.box {
+  width: 100px;
+  height: 100px;
+  background: #42b983;
+}
+.red-box {
+  background: red;
 }
 </style>
